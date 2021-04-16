@@ -33,7 +33,7 @@ client.connect(err => {
     app.get('/getData', (req, res) => {
         collection.find({token: req.query.token})        
             .toArray((err, doc) => {
-                res.send(doc);
+                res.send({doc});
             })
     })
 
@@ -41,8 +41,8 @@ client.connect(err => {
     app.delete('/delete/:id', (req, res) => {
         // console.log(req.params.id);
         collection.deleteOne({_id: ObjectId(req.params.id)})
-        .then(res => {
-            // console.log(res);
+        .then(result => {
+            res.send({result})
         })
     })
 
