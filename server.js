@@ -48,6 +48,14 @@ client.connect(err => {
             })
     })
 
+    // Get All Data --userBookings
+    app.get('/getAllBookings', (req, res) => {
+        userBookings.find({})        
+            .toArray((err, doc) => {
+                res.send(doc);
+            })
+    })
+
     // Get Data
     app.get('/getData', (req, res) => {
         collection.find({token: req.query.token})        
