@@ -18,6 +18,7 @@ app.get('/', (req, res) => {
 client.connect(err => {
     console.log("Database connected...");
     const collection = client.db(process.env.DB_NAME).collection(process.env.DB_COLLECTION);
+    const userBookings = client.db(process.env.DB_NAME).collection("userBookings");
 
     // Post data
     app.post('/addData', (req, res) => {
@@ -27,6 +28,24 @@ client.connect(err => {
                 res.send({result})
             })
             .catch(err => res.send({err}))
+    })
+
+    // Post data --userBookings
+    app.post('/addBookings', (req, res) => {
+        const pd = req.body;
+        userBookings.insertMany(pd)
+            .then(result => { 
+                res.send({result})
+            })
+            .catch(err => res.send({err}))
+    })
+
+    // Get Data --userBookings
+    app.get('/getBookings', (req, res) => {
+        userBookings.find({token: req.query.token})        
+            .toArray((err, doc) => {
+                res.send(doc);
+            })
     })
 
     // Get Data
