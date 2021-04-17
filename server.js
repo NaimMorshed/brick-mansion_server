@@ -33,7 +33,7 @@ client.connect(err => {
     app.get('/getData', (req, res) => {
         collection.find({token: req.query.token})        
             .toArray((err, doc) => {
-                res.send({doc});
+                res.send(doc);
             })
     })
 
