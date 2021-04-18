@@ -75,16 +75,13 @@ client.connect(err => {
 
     // Update data
     app.patch('/update/:id', (req, res) => {
-        collection.updateOne({_id: ObjectId(req.params.id)}, {
+        userBookings.updateOne({_id: ObjectId(req.params.id)}, {
             $set: {
-                name: req.body.name,
-                price: req.body.price,
-                discount: req.body.discount,
-                released: req.body.released
+                status: req.body.status
             }
         })
         .then(result => {
-            console.log(result);
+            res.send({result});
         })
     })
 });
